@@ -1,0 +1,41 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JSMpeg Stream Client</title>
+	<style type="text/css">
+		html, body {
+			background-color: #111;
+			text-align: center;
+		}
+	</style>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/socket.io-stream.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+</head>
+<body>
+  <div>
+    <h1>Streams</h1>
+    <canvas id="video-canvas"></canvas>
+  </div>
+  <script src="/js/jsmpeg.js"></script>
+  <script>
+    var socket = io();
+    ss(socket).on("newstream", function(vidStream){
+      console.log("we got the stream!");
+      // stream.on("data",(chunk) => {
+      //   console.log(`Received ${chunk.length} bytes of data.`);
+      // });
+
+      var canvas = document.getElementById('video-canvas');
+
+      var player = new JSMpeg.Player(vidStream, {
+        autoplay:true,
+        canvas: canvas
+      });
+    });
+
+  </script>
+</body>
+</html>
